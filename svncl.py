@@ -12,6 +12,12 @@ __AUTHOR__ = "Qian Gu"
 __version__ = "0.1.0"
 
 
+header = '# Changelog\n\n'
+header += 'All noteable changes to this project whill be documented in this file. '
+header += 'See [standard-version]' \
+          '(https://github.com/conventional-changelog/standard-version) ' \
+          'for commit guideline.\n\n'
+
 # logger
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 
@@ -74,23 +80,33 @@ class LogParser(object):
             self._key_log[i]['msg'] = ele['msg'].split('\n')[0]
         logger.debug(self._key_log)
 
-    def generate_changelog(self):
-        # file header
-        self._changelog = '# Changelog\n\n'
-        self._changelog += 'All noteable changes to this project whill be documented in this file. '
-        self._changelog += 'See [standard-version]' \
-                           '(https://github.com/conventional-changelog/standard-version) ' \
-                           'for commit guideline.\n\n'
-        # get current datetime
-        self._changelog += '## (' + str(datetime.date.today()) + ')\n\n'
-        # changelog information
-        for element in self._key_log:
-            self._changelog += "* " + element['msg'] + ' (r' + element['revision'] + ')\n'
+    def get_log(self):
+        return self._key_log
 
-    def write_logfile(self, filename):
-        # write
-        with open(filename, 'w') as f:
-            f.write(self._changelog)
+
+def generate_changelog(filename, logs):
+    # file header
+    changelog = header
+    # get current datetime
+    changelog += '## (' + str(datetime.date.today()) + ')\n\n'
+    # generate changelog information
+    changes = ["* " + element['msg'] + ' (r' + element['revision'] + ')\n' for element in logs]
+    # read input changelog and filte out repetitive log
+    filted_changes = filt_changes(changes, filename)
+    # add filted changes into changelog
+    changelog += ''.join(filted_changes)
+    return changelog
+
+
+def filt_changes(changes, filename):
+    # TODO: read input changelog and discard repetitive log
+    return changes
+
+
+def write_logfile(filename, changelog):
+    # write
+    with open(filename, 'w') as f:
+        f.write(changelog)
 
 
 def svncl(argv):
@@ -110,8 +126,10 @@ def svncl(argv):
     log_parser = LogParser(args.path, args.xml)
     log_parser.get_xml_log()  # get xml logdata
     log_parser.strip_key_log()  # strip out key log
-    log_parser.generate_changelog()  # generate changelog
-    log_parser.write_logfile(args.output)  # write changelog file
+    # generate changelog
+    changelog = generate_changelog(args.input, log_parser.get_log())
+    # write changelog file
+    write_logfile(args.output, changelog)
 
 
 if __name__ == '__main__':
