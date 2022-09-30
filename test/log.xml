@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log>
+<logentry
+   revision="8">
+<author>qian</author>
+<date>2022-09-29T11:39:22.666600Z</date>
+<msg>feat(foo)!: support feature foo
+</msg>
+</logentry>
+<logentry
+   revision="7">
+<author>qian</author>
+<date>2022-09-29T11:38:34.715057Z</date>
+<msg>fix: remove error output of world.c
+</msg>
+</logentry>
+<logentry
+   revision="6">
+<author>qian</author>
+<date>2022-09-29T11:37:40.146214Z</date>
+<msg>fix: remove hello error output
+</msg>
+</logentry>
+<logentry
+   revision="5">
+<author>qian</author>
+<date>2022-09-29T11:36:03.575998Z</date>
+<msg>feat: add world feature
+
+BREAKING CHANGE: support hello world
+</msg>
+</logentry>
+<logentry
+   revision="4">
+<author>qian</author>
+<date>2022-09-29T11:29:11.477168Z</date>
+<msg>docs: add user guide</msg>
+</logentry>
+<logentry
+   revision="3">
+<author>qian</author>
+<date>2022-09-29T11:28:26.540975Z</date>
+<msg>feat: add hello feature</msg>
+</logentry>
+<logentry
+   revision="2">
+<author>qian</author>
+<date>2022-09-29T11:27:16.464491Z</date>
+<msg>fix: add title in readme.md</msg>
+</logentry>
+<logentry
+   revision="1">
+<author>qian</author>
+<date>2022-09-29T11:24:29.467326Z</date>
+<msg>feat: initial</msg>
+</logentry>
+</log>
